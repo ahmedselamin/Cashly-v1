@@ -1,5 +1,6 @@
 global using Cashly.Server.Data;
 global using Cashly.Server.Models;
+global using Cashly.Server.Services.AuthService;
 global using Cashly.Server.Services.ExpenseService;
 global using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 );
 
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

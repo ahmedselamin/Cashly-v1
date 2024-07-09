@@ -54,4 +54,5 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     }
     public DbSet<Expense> Expenses { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<User> Users { get; set; }
 }
