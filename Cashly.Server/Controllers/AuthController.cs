@@ -16,7 +16,8 @@ namespace Cashly.Server.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegister request)
         {
-            var result = await _authService.Register(new User
+            var result = await _authService.Register(
+            new User
             {
                 Username = request.Username
             },
@@ -25,6 +26,19 @@ namespace Cashly.Server.Controllers
             if (!result.Success)
             {
                 return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLogin request)
+        {
+            var result = await _authService.Login(request.Username, request.Password);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
             }
 
             return Ok(result);

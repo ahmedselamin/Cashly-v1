@@ -3,6 +3,7 @@ global using Cashly.Server.Models;
 global using Cashly.Server.Services.AuthService;
 global using Cashly.Server.Services.ExpenseService;
 global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
