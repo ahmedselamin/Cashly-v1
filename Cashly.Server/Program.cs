@@ -1,6 +1,7 @@
 global using Cashly.Server.Data;
 global using Cashly.Server.Models;
 global using Microsoft.EntityFrameworkCore;
+using Cashly.Server.Services.ExpenseService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
 
 var app = builder.Build();
 
