@@ -4,6 +4,7 @@ using Cashly.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cashly.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240709084013_CategoryModel")]
+    partial class CategoryModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,18 +40,6 @@ namespace Cashly.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Income"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Expenditure"
-                        });
                 });
 
             modelBuilder.Entity("Cashly.Server.Models.Expense", b =>
@@ -77,40 +68,6 @@ namespace Cashly.Server.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Expenses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Amount = 5600m,
-                            CategoryId = 1,
-                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6181),
-                            Title = "Salary"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 200m,
-                            CategoryId = 1,
-                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6199),
-                            Title = "gift"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Amount = 50.76m,
-                            CategoryId = 2,
-                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6203),
-                            Title = "Lunch"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Amount = 1200m,
-                            CategoryId = 2,
-                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6205),
-                            Title = "rent"
-                        });
                 });
 
             modelBuilder.Entity("Cashly.Server.Models.Expense", b =>
