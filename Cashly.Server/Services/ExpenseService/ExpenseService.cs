@@ -1,5 +1,4 @@
-﻿
-namespace Cashly.Server.Services.ExpenseService;
+﻿namespace Cashly.Server.Services.ExpenseService;
 
 public class ExpenseService : IExpenseService
 {
@@ -11,33 +10,118 @@ public class ExpenseService : IExpenseService
     }
     public async Task<ServiceResponse<List<Expense>>> GetExpenses()
     {
-        var response = new ServiceResponse<List<Expense>>()
+        var response = new ServiceResponse<List<Expense>>();
+
+        try
         {
-            Data = await _context.Expenses.ToListAsync()
-        };
+            response.Data = await _context.Expenses.ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
 
         return response;
     }
-    public Task<ServiceResponse<Expense>> GetExpense(int id)
+    public async Task<ServiceResponse<Expense>> GetExpense(int id)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<Expense>();
+        try
+        {
+            var expense = await _context.Expenses.FindAsync(id);
+
+            if (expense == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
+            }
+            response.Data = expense;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+        return response;
     }
 
-
-    public Task<ServiceResponse<Expense>> CreateExpense(Expense expense)
+    public async Task<ServiceResponse<Expense>> CreateExpense(Expense expense)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<Expense>();
+
+        try
+        {
+            _context.Expenses.Add(expense);
+
+            await _context.SaveChangesAsync();
+            response.Data = expense;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 
-    public Task<ServiceResponse<bool>> DeleteExpense(int id)
+    public async Task<ServiceResponse<Expense>> UpdateExpense(int id, Expense UpdatedExpense)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<Expense>();
+
+        try
+        {
+            var expense = await _context.Expenses.FindAsync(id);
+
+            if (expense == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
+            }
+
+            expense.Title = UpdatedExpense.Title;
+            expense.Amount = UpdatedExpense.Amount;
+            expense.Date = UpdatedExpense.Date;
+            expense.CategoryId = UpdatedExpense.CategoryId;
+
+            response.Data = expense;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
     }
 
-
-
-    public Task<ServiceResponse<Expense>> UpdateExpense(int id, Expense UpdatedExpense)
+    public async Task<ServiceResponse<bool>> DeleteExpense(int id)
     {
-        throw new NotImplementedException();
+        var response = new ServiceResponse<bool>();
+        try
+        {
+            var expense = await _context.Expenses.FindAsync(id);
+            if (expense == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found!";
+            }
+
+            _context.Expenses.Remove(expense);
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+            response.Data = false;
+        }
+
+        return response;
+
     }
+
 }
