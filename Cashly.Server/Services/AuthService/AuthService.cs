@@ -137,4 +137,38 @@ public class AuthService : IAuthService
         return jwt;
     }
 
+    public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+    {
+        var response = new ServiceResponse<bool>();
+        try
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
+
+                return response;
+            }
+
+            CreatePasswordHash(newPassword, out byte[] passwordHash, out byte[] PasswordSalt);
+
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = PasswordSalt;
+
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
+            response.Message = "Password Has Been Changed Successfully";
+
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
 }
