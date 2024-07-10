@@ -4,6 +4,8 @@ global using Cashly.Server.Services.AuthService;
 global using Cashly.Server.Services.ExpenseService;
 global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,20 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey =
+                new SymmetricSecurityKey(System.Text.Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -35,6 +51,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
