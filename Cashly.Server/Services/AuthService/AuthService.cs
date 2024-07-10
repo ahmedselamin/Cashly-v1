@@ -171,4 +171,32 @@ public class AuthService : IAuthService
 
         return response;
     }
+
+    public async Task<ServiceResponse<bool>> DeleteUser(int userId)
+    {
+        var response = new ServiceResponse<bool>();
+
+        try
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "Not Found";
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            response.Data = true;
+        }
+        catch (Exception ex)
+        {
+            response.Success = false;
+            response.Message = ex.Message;
+        }
+
+        return response;
+    }
 }

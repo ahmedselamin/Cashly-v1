@@ -59,5 +59,18 @@ namespace Cashly.Server.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("delete-user"), Authorize]
+        public async Task<ActionResult<ServiceResponse<bool>>> DeleteUser(int userId)
+        {
+            var result = await _authService.DeleteUser(userId);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
     }
 }
