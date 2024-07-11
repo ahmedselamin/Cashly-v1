@@ -184,17 +184,23 @@ public class AuthService : IAuthService
             {
                 response.Success = false;
                 response.Message = "Not Found";
+                response.Data = false;
+
+                return response;
             }
 
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
+            response.Success = true;
+            response.Message = "User Deleted Successfully.";
             response.Data = true;
         }
         catch (Exception ex)
         {
             response.Success = false;
             response.Message = ex.Message;
+            response.Data = false;
         }
 
         return response;
