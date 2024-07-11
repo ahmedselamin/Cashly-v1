@@ -29,4 +29,8 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\ahmed\source\repos\Cashly\Cashly.Server\Services\ReportService\.editorconfig" />
+  </ItemGroup>
+
 </Project>
