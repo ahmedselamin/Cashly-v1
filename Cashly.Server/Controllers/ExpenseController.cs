@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cashly.Server.Controllers
 {
@@ -12,7 +13,7 @@ namespace Cashly.Server.Controllers
         {
             _expenseService = expenseService;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<Expense>>>> GetExpenses()
         {
@@ -21,6 +22,7 @@ namespace Cashly.Server.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<Expense>>> GetExpense(int id)
         {
@@ -29,6 +31,8 @@ namespace Cashly.Server.Controllers
             return Ok(result);
         }
 
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<Expense>>> CreateExpense(Expense expense)
         {
@@ -37,6 +41,8 @@ namespace Cashly.Server.Controllers
             return Ok(result);
         }
 
+
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<ServiceResponse<Expense>>> UpdateExpense(int id, Expense Updatedexpense)
         {
@@ -50,6 +56,8 @@ namespace Cashly.Server.Controllers
             return Ok(result);
         }
 
+
+        [Authorize]
         [HttpDelete]
         public async Task<ActionResult<ServiceResponse<bool>>> DeleteExpense(int id)
         {
