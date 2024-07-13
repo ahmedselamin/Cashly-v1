@@ -13,5 +13,7 @@ public class Expense
     [Column(TypeName = "decimal(18,2)")]
     public decimal Amount { get; set; }
     public DateTime Date { get; set; } = DateTime.Now;
+    [Required]
+    public string UserId { get; set; } = string.Empty;
 
 }
