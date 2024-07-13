@@ -36,7 +36,7 @@ namespace Cashly.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -76,7 +76,7 @@ namespace Cashly.Server.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
 
                     b.HasData(
                         new
@@ -84,7 +84,7 @@ namespace Cashly.Server.Migrations
                             Id = 1,
                             Amount = 5600m,
                             CategoryId = 1,
-                            Date = new DateTime(2024, 7, 9, 13, 19, 52, 354, DateTimeKind.Local).AddTicks(2144),
+                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6181),
                             Title = "Salary"
                         },
                         new
@@ -92,7 +92,7 @@ namespace Cashly.Server.Migrations
                             Id = 2,
                             Amount = 200m,
                             CategoryId = 1,
-                            Date = new DateTime(2024, 7, 9, 13, 19, 52, 354, DateTimeKind.Local).AddTicks(2149),
+                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6199),
                             Title = "gift"
                         },
                         new
@@ -100,7 +100,7 @@ namespace Cashly.Server.Migrations
                             Id = 3,
                             Amount = 50.76m,
                             CategoryId = 2,
-                            Date = new DateTime(2024, 7, 9, 13, 19, 52, 354, DateTimeKind.Local).AddTicks(2153),
+                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6203),
                             Title = "Lunch"
                         },
                         new
@@ -108,37 +108,9 @@ namespace Cashly.Server.Migrations
                             Id = 4,
                             Amount = 1200m,
                             CategoryId = 2,
-                            Date = new DateTime(2024, 7, 9, 13, 19, 52, 354, DateTimeKind.Local).AddTicks(2155),
+                            Date = new DateTime(2024, 7, 9, 10, 51, 4, 741, DateTimeKind.Local).AddTicks(6205),
                             Title = "rent"
                         });
-                });
-
-            modelBuilder.Entity("Cashly.Server.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Cashly.Server.Models.Expense", b =>

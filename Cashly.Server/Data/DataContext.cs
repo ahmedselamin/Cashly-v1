@@ -6,6 +6,6 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     {
 
     }
-    public DbSet<Expense> Expenses { get; set; }
+    public DbSet<Transaction> Expenses { get; set; }
     public DbSet<User> Users { get; set; }
 }

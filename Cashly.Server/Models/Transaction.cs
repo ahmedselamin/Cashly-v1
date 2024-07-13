@@ -2,7 +2,7 @@
 
 namespace Cashly.Server.Models;
 
-public class Expense
+public class Transaction
 {
     public int Id { get; set; }
     [Required]

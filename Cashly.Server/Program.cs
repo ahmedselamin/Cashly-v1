@@ -1,10 +1,9 @@
 global using Cashly.Server.Data;
 global using Cashly.Server.Models;
 global using Cashly.Server.Services.AuthService;
-global using Cashly.Server.Services.ExpenseService;
+global using Cashly.Server.Services.TransactionService;
 global using Microsoft.EntityFrameworkCore;
 global using System.ComponentModel.DataAnnotations;
-using Cashly.Server.Services.ReportService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -21,9 +20,8 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
