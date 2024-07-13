@@ -14,7 +14,7 @@ public class TransactionController : ControllerBase
         _transactionService = transactionService;
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Transaction>>>> GetTransactions()
     {

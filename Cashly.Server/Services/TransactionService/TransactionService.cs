@@ -4,10 +4,12 @@ namespace Cashly.Server.Services.TransactionService;
 public class TransactionService : ITransactionService
 {
     private readonly DataContext _context;
+    private readonly IHttpContextAccessor _httpContext;
 
-    public TransactionService(DataContext context)
+    public TransactionService(DataContext context, IHttpContextAccessor httpContext)
     {
         _context = context;
+        _httpContext = httpContext;
     }
 
     public async Task<ServiceResponse<List<Transaction>>> GetTransactions()
