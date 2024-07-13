@@ -83,7 +83,6 @@ public class ExpenseService : IExpenseService
             expense.Title = UpdatedExpense.Title;
             expense.Amount = UpdatedExpense.Amount;
             expense.Date = UpdatedExpense.Date;
-            expense.CategoryId = UpdatedExpense.CategoryId;
 
             response.Data = expense;
         }
